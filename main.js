@@ -38,8 +38,22 @@ async function showForecast(url) {
     // aktuelles Wetter und Wettervorhersage implementieren
     console.log(jsondata);
     L.geoJSON(jsondata,{
-        pointToLayer: function(feature, latlng){
-
+        pointToLayer: function(feature, latlng) {
+            let details = features.properties.timeseries [0].data.instant.details;
+            console.log(details);
+            let content= `
+            <ul> 
+            <li> Luftdruck Meereshöhe (hPa): ${details.air_pressure_at_sea_level} </li>
+            <li> Lufttemperatur (°C): ${details.air_temperature} </li>
+            <li> Bewölkungsgrad (%): ${details.cloud_area_fraction} </li>
+            <li> Luftfeuchtigkeit (%): ${details.relative_humidity} </li>
+            <li> Windrichtung (°): ${details.wind_from_direction} </li>
+            <li> Windgeschwindigkeit (km/h): ${Math.round(details.wind_speed *3.6)} </li>
+            </ul>
+            `;
+           L.popup(lat,lng, {
+                content: content 
+        }) .openOn(themaLayer.forecast);
         }
     }).addTo(themaLayer.forecast);
 }
