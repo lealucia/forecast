@@ -40,6 +40,7 @@ async function showForecast(url) {
     L.geoJSON(jsondata,{
         pointToLayer: function(feature, latlng) {
             let details = features.properties.timeseries [0].data.instant.details;
+            let time = new Date(feature.properties.timeseries[0].time);
             console.log(details);
             let content= `
             <ul> 
