@@ -44,7 +44,7 @@ async function showForecast(url) {
             let content= `
                 <h4> Wettervorhersage für ${time.toLocaleString()}</h4>
                 <ul> 
-                    <li> Luftdruck Meereshöhe (hPa): ${details.air_pressure_at_sea_level} </li>
+                    <li> Luftdruck (hPa): ${details.air_pressure_at_sea_level} </li>
                     <li> Lufttemperatur (°C): ${details.air_temperature} </li>
                     <li> Bewölkungsgrad (%): ${details.cloud_area_fraction} </li>
                     <li> Luftfeuchtigkeit (%): ${details.relative_humidity} </li>
@@ -53,7 +53,7 @@ async function showForecast(url) {
                 </ul>
             `;
 
-            //Wettericons für die nächsten 24 Stunden in 3-Stunden Schritten 
+            //Wettericons für die nächsten 24 Stunden in 3-Stunden Schritten (mit for-Schleife und mit let definieren wir jedes Mal ein neues Icon)
 
         for (let i= 0; i <= 24; i +=3) {
             let symbol= feature.properties.timeseries[i].data.next_1_hours.summary.symbol_code;
@@ -61,13 +61,13 @@ async function showForecast(url) {
             content += `<img src="icons/${symbol}.svg" alt="${symbol}" sytle "width: 32px" title="${time.toLocaleString()}" >`;
         }
        
-        //Link für Datendownload
+        //Link für Datendownload (+= bedeutet, dass wir was zum Popup anhängen, wenn ich ohne + mache, wird mein alter Content überschrieben)
 
-content += `
+content += ` 
 <p> <a href="${url}" target="met.no" >Daten downloaden </a></p>
 
 `
-
+// Hier endet dann der Inhalt des Popups 
            L.popup(lat,lng, {
                 content: content 
         }) .openOn(themaLayer.forecast);
@@ -75,3 +75,10 @@ content += `
     }).addTo(themaLayer.forecast);
 }
 showForecast("https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=47.267222&lon=11.392778");
+
+//hie wollen wir, dass wenn man auf die Karte klickt, eine Sache (Wb.) entsteht
+map.on("click", function (evt) {
+    console.log(evt);
+    console.log(evt.latlng.lat, evt.latlng);
+});
+showForecast(`https://api.met.no/weatherapi/locationforecast/2.0/compact?evt.lat=${evt.latlng.lat} &lon=${evt.latlng.lng} `);
