@@ -61,6 +61,12 @@ async function showForecast(url) {
             content += `<img src="icons/${symbol}.svg" alt="${symbol}" sytle "width: 32px" title="${time.toLocaleString()}" >`;
         }
        
+        //Link für Datendownload
+
+content += `
+<p> <a href="${url}" target="met.no" >Daten downloaden </a></p>
+
+`
 
            L.popup(lat,lng, {
                 content: content 
