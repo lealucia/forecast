@@ -74,11 +74,16 @@ content += `
         }
     }).addTo(themaLayer.forecast);
 }
-showForecast("https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=47.267222&lon=11.392778");
-
+//showForecast("https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=47.267222&lon=11.392778");
+// wenn ich map fire auslösen will, muss ich obriges showForecast "deaktivieren", also als  Kommentar schreiben 
 //hie wollen wir, dass wenn man auf die Karte klickt, eine Sache (Wb.) entsteht
 map.on("click", function (evt) {
     console.log(evt);
     console.log(evt.latlng.lat, evt.latlng);
 });
 showForecast(`https://api.met.no/weatherapi/locationforecast/2.0/compact?evt.lat=${evt.latlng.lat} &lon=${evt.latlng.lng} `);
+
+// Klick auf Innsbruck simulieren (brauchen wir nicht oft, aber nicht schlecht)
+map.fire("click"´, {
+latlng: ibk
+});
