@@ -24,7 +24,7 @@ let layerControl = L.control.layers({
     "Esri WorldImagery": L.tileLayer.provider("Esri.WorldImagery").addTo(map)
 }, {
     "Wettervorhersage MET Norway": themaLayer.forecast,
-    "ECMWF WIndvorhersage": themaLayer.wind,
+    "ECMWF Windvorhersage": themaLayer.wind,
 }).addTo(map);
 
 // Maßstab
@@ -37,7 +37,7 @@ async function showForecast(url) {
     let response = await fetch(url);
     let jsondata = await response.json();
 
-    // aktuelles Wetter und Wettervorhersage implementieren
+ // aktuelles Wetter und Wettervorhersage implementieren
     console.log(jsondata);
     L.geoJSON(jsondata,{
         pointToLayer: function(feature, latlng) {
@@ -55,7 +55,7 @@ async function showForecast(url) {
                 </ul>
             `;
 
-            //Wettericons für die nächsten 24 Stunden in 3-Stunden Schritten (mit for-Schleife und mit let definieren wir jedes Mal ein neues Icon)
+//Wettericons für die nächsten 24 Stunden in 3-Stunden Schritten (mit for-Schleife und mit let definieren wir jedes Mal ein neues Icon)
 
         for (let i= 0; i <= 24; i +=3) {
             let symbol= feature.properties.timeseries[i].data.next_1_hours.summary.symbol_code;
@@ -63,7 +63,7 @@ async function showForecast(url) {
             content += `<img src="icons/${symbol}.svg" alt="${symbol}" sytle "width: 32px" title="${time.toLocaleString()}" >`;
         }
        
-        //Link für Datendownload (+= bedeutet, dass wir was zum Popup anhängen, wenn ich ohne + mache, wird mein alter Content überschrieben)
+ //Link für Datendownload (+= bedeutet, dass wir was zum Popup anhängen, wenn ich ohne + mache, wird mein alter Content überschrieben)
 
 content += ` 
 <p> <a href="${url}" target="met.no" >Daten downloaden </a></p>
@@ -107,5 +107,12 @@ async function loadWind(url) {
             velocityType: "",
         }
     }).addTo(themaLayer.wind);
+
+    //Vorhersagezeitpunkt ermitteln
+
+    let forecast = new Date(jsondata[0].header.refTime);
+    console.log(forecastDate);  
+
+
 }
 loadWind("https://geographie.uibk.ac.at/data/ecmwf/data/wind-10u-10v-europe.json");
