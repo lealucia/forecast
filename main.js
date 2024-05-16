@@ -84,7 +84,7 @@ map.on("click", function (evt) {
 showForecast(`https://api.met.no/weatherapi/locationforecast/2.0/compact?evt.lat=${evt.latlng.lat} &lon=${evt.latlng.lng} `);
 
 // Klick auf Innsbruck simulieren (brauchen wir nicht oft, aber nicht schlecht)
-map.fire("click"´, {
+map.fire("click", {
 latlng: ibk
 });
 
