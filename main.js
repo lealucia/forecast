@@ -41,18 +41,23 @@ async function showForecast(url) {
         pointToLayer: function(feature, latlng) {
             let details = features.properties.timeseries [0].data.instant.details;
             let time = new Date(feature.properties.timeseries[0].time);
-            console.log(details);
             let content= `
-            <h4> Wettervorhersage für ${time.toLocaleString()}</h4>
-            <ul> 
-                <li> Luftdruck Meereshöhe (hPa): ${details.air_pressure_at_sea_level} </li>
-                <li> Lufttemperatur (°C): ${details.air_temperature} </li>
-                <li> Bewölkungsgrad (%): ${details.cloud_area_fraction} </li>
-                <li> Luftfeuchtigkeit (%): ${details.relative_humidity} </li>
-                <li> Windrichtung (°): ${details.wind_from_direction} </li>
-                <li> Windgeschwindigkeit (km/h): ${Math.round(details.wind_speed *3.6)} </li>
-            </ul>
+                <h4> Wettervorhersage für ${time.toLocaleString()}</h4>
+                <ul> 
+                    <li> Luftdruck Meereshöhe (hPa): ${details.air_pressure_at_sea_level} </li>
+                    <li> Lufttemperatur (°C): ${details.air_temperature} </li>
+                    <li> Bewölkungsgrad (%): ${details.cloud_area_fraction} </li>
+                    <li> Luftfeuchtigkeit (%): ${details.relative_humidity} </li>
+                    <li> Windrichtung (°): ${details.wind_from_direction} </li>
+                    <li> Windgeschwindigkeit (km/h): ${Math.round(details.wind_speed *3.6)} </li>
+                </ul>
             `;
+        for (let i= 0; i <= 24; i +=3) {
+            let symbol= feature.properties.timeseries[i].data.next_1_hours.summary.symbol_code;
+            console.log(i, symbol);
+        }
+       
+
            L.popup(lat,lng, {
                 content: content 
         }) .openOn(themaLayer.forecast);
