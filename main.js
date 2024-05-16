@@ -54,7 +54,9 @@ async function showForecast(url) {
             `;
         for (let i= 0; i <= 24; i +=3) {
             let symbol= feature.properties.timeseries[i].data.next_1_hours.summary.symbol_code;
-            console.log(i, symbol);
+            content += `
+            <img src="icons/${symbol}.svg" alt="${symbol}" sytle "width: 32px">
+            `;
         }
        
 
