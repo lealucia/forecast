@@ -52,6 +52,9 @@ async function showForecast(url) {
                     <li> Windgeschwindigkeit (km/h): ${Math.round(details.wind_speed *3.6)} </li>
                 </ul>
             `;
+
+            //Wettericons für die nächsten 24 Stunden in 3-Stunden Schritten 
+            
         for (let i= 0; i <= 24; i +=3) {
             let symbol= feature.properties.timeseries[i].data.next_1_hours.summary.symbol_code;
             content += `
