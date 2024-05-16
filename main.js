@@ -87,3 +87,11 @@ showForecast(`https://api.met.no/weatherapi/locationforecast/2.0/compact?evt.lat
 map.fire("click"´, {
 latlng: ibk
 });
+
+//Windkarte erstellen -_> dafür brauchen wir eine funktion 
+
+async function loadWind(url) {
+    const response = await fetch(url);
+    const jsondata = await response.json();
+}
+loadWind("https://geographie.uibk.ac.at/data/ecmwf/data/wind-10u-10v-europe.json");
