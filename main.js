@@ -89,7 +89,6 @@ showForecast(`https://api.met.no/weatherapi/locationforecast/2.0/compact?evt.lat
 map.fire("click", {
 latlng: ibk
 });
-
 //Windkarte erstellen -_> dafür brauchen wir eine funktion 
 
 async function loadWind(url) {
@@ -108,9 +107,10 @@ async function loadWind(url) {
         }
     }).addTo(themaLayer.wind);
 
-    //Vorhersagezeitpunkt ermitteln
+//Vorhersagezeitpunkt ermitteln
 
     let forecast = new Date(jsondata[0].header.refTime);
+    forecastDate.setHours(forecastDate.getHours() + jsondata [0].header.forecastTime); 
     console.log(forecastDate);  
 
 
