@@ -111,8 +111,11 @@ async function loadWind(url) {
 
     let forecast = new Date(jsondata[0].header.refTime);
     forecastDate.setHours(forecastDate.getHours() + jsondata [0].header.forecastTime); 
-    console.log(forecastDate);  
+  //  console.log(forecastDate); 
 
-
+document.querySelector("#forecast-date").innerHTML = `
+(<a href= "${url}" target= "met.no" >Stand ${forecastDate.toLocaleString()} </a>) 
+`;
+// das hier würde Karte komplett wegmachen und nur "" text darstellen: document.querySelector("#map").innerHTML = "heute keine Karte";
 }
 loadWind("https://geographie.uibk.ac.at/data/ecmwf/data/wind-10u-10v-europe.json");
